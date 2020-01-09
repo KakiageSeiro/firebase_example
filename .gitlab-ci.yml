@@ -13,3 +13,11 @@ go-install:
   artifacts:
     paths:
       - vendor
+
+deploy:
+  image: image: google/cloud-sdk:latest
+  stage: deploy
+  script:
+    - echo $DEPLOY_KEY_FILE_PRODUCTION > /tmp/$CI_PIPELINE_ID.json
+    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud functions deploy HelloHTTP --runtime go111 --trigger-http --entry-point HelloHTTP --project mc-go-test
