@@ -1,0 +1,15 @@
+variables:
+  GCP_ZONE: us-central1-a
+
+stages:
+  - go-install
+
+go-install:
+  image: golang:1.13
+  stage: go-install
+  script:
+    - go get
+    - go mod vendor
+  artifacts:
+    paths:
+      - vendor

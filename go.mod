@@ -1,0 +1,3 @@
+module gitlab.com/mc_go/firebase_example
+
+go 1.13
