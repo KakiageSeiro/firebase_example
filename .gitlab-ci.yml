@@ -3,6 +3,7 @@ variables:
 
 stages:
   - go-install
+  - deploy
 
 go-install:
   image: golang:1.13
