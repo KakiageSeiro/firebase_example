@@ -4,7 +4,7 @@ variables:
 stages:
   - go-install
   - lint
-  - deploy
+#  - deploy
 
 go-install:
   image: golang:1.13
