@@ -32,10 +32,10 @@ func TestCanNotDecode(t *testing.T) {
 	}
 }
 
-//json用
-type Person struct {
-	Name string `json:"name"`
-}
+////json用
+//type Person struct {
+//	Name string `json:"name"`
+//}
 //
 //func TestNotName(t *testing.T) {
 //	ts := httptest.NewServer(sampleHandler)
