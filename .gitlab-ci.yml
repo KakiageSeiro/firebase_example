@@ -23,6 +23,12 @@ lint:
   script:
     - golangci-lint run -v
 
+test:
+  image: golang:1.13
+  stage: test
+  script:
+    - go test
+
 #deploy:
 #  image: google/cloud-sdk:latest
 #  stage: deploy
@@ -30,8 +36,3 @@ lint:
 #    - echo $DEPLOY_KEY_FILE_PRODUCTION | base64 -d > /tmp/$CI_PIPELINE_ID.json
 #    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
 #    - gcloud functions deploy HelloHTTP --runtime go111 --trigger-http --entry-point HelloHTTP --project shinofara-233410
-
-test:
-  stage: test
-  script:
-    - go test
