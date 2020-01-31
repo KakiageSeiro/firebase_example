@@ -1,13 +1,10 @@
 package helloworld
 
 import (
-	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 )
 
 //テスト対象のハンドラ
@@ -35,45 +32,60 @@ func TestCanNotDecode(t *testing.T) {
 	}
 }
 
-
-func TestNotName(t *testing.T) {
-	ts := httptest.NewServer(sampleHandler)
-	defer ts.Close()
-
-	//リクエスト作成
-	request, err := http.NewRequest("GET", ts.URL, nil)
-	if err != nil{
-		log.Fatal(err)
-	}
-
-	//クエリパラメータ
-	params := request.URL.Query()
-	params.Add("name","")
-	request.URL.RawQuery = params.Encode()
-
-	//作ったクエリを確認
-	fmt.Println(request.URL.String())
-
-	timeout := time.Duration(5 * time.Second)
-	client := &http.Client{
-		Timeout: timeout,
-	}
-
-	response, err := client.Do(request)
-	if err != nil{
-		log.Fatal(err)
-	}
-	defer response.Body.Close()
-
-	body, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-	log.Fatal(err)
-	}
-
-
-	//assert
-	if "名前が空文字だよHello, World!" != string(string(body)) {
-		t.Fatalf("Data Error. %v", string(body))
-	}
-
+//json用
+type Person struct {
+	Name string `json:"name"`
+}
+//
+//func TestNotName(t *testing.T) {
+//	ts := httptest.NewServer(sampleHandler)
+//	defer ts.Close()
+//
+//	//リクエスト作成
+//	request, err := http.NewRequest("POST", ts.URL, nil)
+//	if err != nil{
+//		log.Fatal(err)
+//	}
+//
+//	dummy := []byte(`{"name":""}`)
+//
+//	// JSONデコード
+//	var person []Person
+//	if err := json.Unmarshal(dummy, &person); err != nil {
+//		log.Fatal(err)
+//	}
+//
+//	//クエリパラメータ
+//	params := request.URL.Query()
+//	request.URL.RawQuery = params.Encode()
+//
+//	request.
+//
+//	//作ったクエリを確認
+//	fmt.Println(request.URL.String())
+//
+//	timeout := time.Duration(5 * time.Second)
+//	client := &http.Client{
+//		Timeout: timeout,
+//	}
+//
+//	//レスポンス取得
+//	response, err := client.Do(request)
+//	if err != nil{
+//		log.Fatal(err)
+//	}
+//	defer response.Body.Close()
+//
+//	//レスポンス読み込み
+//	body, err := ioutil.ReadAll(response.Body)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//
+//
+//	//assert
+//	if "名前が空文字だよHello, World!" != string(string(body)) {
+//		t.Fatalf("Data Error. %v", string(body))
+//	}
+//
 }
