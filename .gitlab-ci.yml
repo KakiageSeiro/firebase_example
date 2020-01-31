@@ -4,7 +4,7 @@ variables:
 stages:
   - go-install
   - lint
-#  - deploy
+  - deploy
 
 go-install:
   image: golang:1.13
@@ -22,10 +22,10 @@ lint:
   script:
     - golangci-lint run -v
 
-deploy:
-  image: google/cloud-sdk:latest
-  stage: deploy
-  script:
-    - echo $DEPLOY_KEY_FILE_PRODUCTION | base64 -d > /tmp/$CI_PIPELINE_ID.json
-    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
-    - gcloud functions deploy HelloHTTP --runtime go111 --trigger-http --entry-point HelloHTTP --project shinofara-233410
+#deploy:
+#  image: google/cloud-sdk:latest
+#  stage: deploy
+#  script:
+#    - echo $DEPLOY_KEY_FILE_PRODUCTION | base64 -d > /tmp/$CI_PIPELINE_ID.json
+#    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+#    - gcloud functions deploy HelloHTTP --runtime go111 --trigger-http --entry-point HelloHTTP --project shinofara-233410
