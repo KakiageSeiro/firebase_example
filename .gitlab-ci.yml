@@ -5,6 +5,7 @@ stages:
   - go-install
   - lint
   - deploy
+  - test
 
 go-install:
   image: golang:1.13
@@ -29,3 +30,8 @@ lint:
 #    - echo $DEPLOY_KEY_FILE_PRODUCTION | base64 -d > /tmp/$CI_PIPELINE_ID.json
 #    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
 #    - gcloud functions deploy HelloHTTP --runtime go111 --trigger-http --entry-point HelloHTTP --project shinofara-233410
+
+test:
+  stage: test
+  script:
+    - go test
