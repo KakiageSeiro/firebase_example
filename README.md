@@ -17,3 +17,9 @@ $ gcloud functions list
 ```
 $ gcloud functions deploy hello --entry-point get_nayose_result --runtime go111 --trigger-http --entry-point HelloHTTP --project shinofara-233410
 ```
+
+ローカルでLint
+
+```
+$ docker run --rm -v $(pwd):/app -w /app golangci/golangci-lint:v1.23.1 golangci-lint run -v
+```
