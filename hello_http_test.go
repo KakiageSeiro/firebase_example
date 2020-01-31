@@ -1,16 +1,18 @@
 package helloworld
 
 import (
+	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
 //テスト対象のハンドラ
 var sampleHandler = http.HandlerFunc(HelloHTTP)
 
-func TestCanNotDecode(t *testing.T) {
+func TestCanNotDecodeE2E(t *testing.T) {
 	ts := httptest.NewServer(sampleHandler)
 	defer ts.Close()
 
@@ -31,6 +33,47 @@ func TestCanNotDecode(t *testing.T) {
 		t.Fatalf("Data Error. %v", string(data))
 	}
 }
+
+
+func TestCanNotDecode(t *testing.T) {
+
+	req := httptest.NewRequest("POST", "/", nil)
+	rec := httptest.NewRecorder()
+
+	HelloHTTP(rec, req)
+
+	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, "jsonがデコードできなかったよHello, World!", rec.Body.String())
+}
+
+
+func TestNoName(t *testing.T) {
+
+	body := strings.NewReader(`{"name":""}`)
+
+	req := httptest.NewRequest("POST", "/", body)
+	rec := httptest.NewRecorder()
+
+	HelloHTTP(rec, req)
+
+	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, "名前が空文字だよHello, World!", rec.Body.String())
+}
+
+
+func TestExistName(t *testing.T) {
+
+	body := strings.NewReader(`{"name":"えびえび"}`)
+
+	req := httptest.NewRequest("POST", "/", body)
+	rec := httptest.NewRecorder()
+
+	HelloHTTP(rec, req)
+
+	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, "Hello, えびえび!", rec.Body.String())
+}
+
 
 ////json用
 //type Person struct {
