@@ -3,6 +3,7 @@ variables:
 
 stages:
   - go-install
+  - lint
   - deploy
 
 go-install:
@@ -14,6 +15,12 @@ go-install:
   artifacts:
     paths:
       - vendor
+
+lint:
+  image: golangci/golangci-lint:v1.23.1
+  stage: lint
+  script:
+    - golangci-lint run -v
 
 deploy:
   image: google/cloud-sdk:latest
