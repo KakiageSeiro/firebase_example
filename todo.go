@@ -1,4 +1,4 @@
-package gqlgen
+package helloworld
 
 type Todo struct {
 	ID     string

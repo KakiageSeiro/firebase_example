@@ -1,3 +1,0 @@
-models:
-  Todo:
-    model: github.com/KakiageSeiro/gqlgen-todos.Todo

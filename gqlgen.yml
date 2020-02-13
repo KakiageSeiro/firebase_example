@@ -13,3 +13,7 @@ resolver:
   filename: resolver.go
   type: Resolver
 autobind: []
+
+models:
+  Todo:
+    model: gitlab.com/mc_go/firebase_example.Todo
