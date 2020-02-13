@@ -38,6 +38,7 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*Todo, error) {
 	return r.todos, nil
 }
 
+//返却する型？によしなにマッピング
 type todoResolver struct{ *Resolver }
 
 func (r *todoResolver) User(ctx context.Context, obj *Todo) (*User, error) {
