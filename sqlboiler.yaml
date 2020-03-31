@@ -1,8 +1,8 @@
 mysql:
-  dbname: todo
-  host: 127.0.0.1
+  dbname: "todo"
+  host: "localhost"
   port: 53306
-  user: root
+  user: "root"
   pass:
   sslmode: "false"
   whitelist: []
