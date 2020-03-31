@@ -25,7 +25,5 @@ func main() {
 }
 
 //Goのコード生成コマンド「go generate ./...」から以下コメントのコマンドを実行する
-//「./...」でどういう挙動になるのかわからない・・・
-
 //go:generate go run github.com/99designs/gqlgen ../
 //go:generate sqlboiler --wipe mysql --output ../domain/entity -d -c ../sqlboiler.yaml
